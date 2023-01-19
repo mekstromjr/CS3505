@@ -7,7 +7,16 @@ This builds a 1D cellular Automata using a specific rule provided by the user.
 #include <iostream>
 using namespace std;
 
+/// @brief The number of generations the 1D Automota will run for
+const int generations = 50;
+/// @brief The size (width) of each generation.
+const int generationSize = 64;
+/// @brief The size of the rule set (do not modify)
+const int ruleSetArrSize = 8;
 
+/// @brief Prints to the console the generation input. " " if the index contained 0, "#" if it contained 1.
+/// @param arr - Array Containing the current generation
+/// @param arrSize - The size of the input Array (usually const int generationsSize)
 void displayGeneration(int arr[], int arrSize) {
     for(int i = 0; i < arrSize; i++) {
         if(arr[i] == 0)
@@ -18,7 +27,10 @@ void displayGeneration(int arr[], int arrSize) {
     cout << endl;
 }
 
-
+/// @brief Takes an integer from 0-255 and converts it into an array containing that numbers
+/// binary digits from left to right.
+/// @param ruleSet An integer from 0-255 representing the rule set.
+/// @param ruleSetArr An array for holding the rule set represented in binary.
 void convertRuleSetNumberToRuleSetArray (int ruleSet, int ruleSetArr[8]) {
     for(int i = 7; i >= 0; i--) {
         int factor = 1;
@@ -34,10 +46,14 @@ void convertRuleSetNumberToRuleSetArray (int ruleSet, int ruleSetArr[8]) {
     }
 }
 
-
+/// @brief Takes three integers and returns the index in the ruleset coresponding with their situation.
+/// @param left
+/// @param current 
+/// @param right 
+/// @return 
 int convertNeighborhoodToIndex(int left, int current, int right) {
     int result = 0;
-    
+
     result += left * 4;
     result += current * 2;
     result += right * 1;
@@ -45,7 +61,11 @@ int convertNeighborhoodToIndex(int left, int current, int right) {
     return result;
 }
 
-
+/// @brief Takes the current generation and, using the rule set produces the next generation, storing it in nextGen.
+/// @param curGen 
+/// @param nextGen 
+/// @param arrSize - size (width) of the generation.
+/// @param ruleSet - An array containing the binary representation of the rule set.
 void computeNextGeneration(int curGen[], int nextGen[], int arrSize, int ruleSet[]) {
     nextGen[0] = curGen[0];
     nextGen[arrSize-1] = curGen[arrSize-1];
@@ -56,13 +76,10 @@ void computeNextGeneration(int curGen[], int nextGen[], int arrSize, int ruleSet
     }
 }
 
-
+/// @brief This is the 1D automota driver method.
+/// @return 
 int main() {
     int ruleSetNum = 0;
-    int generations = 50;
-    int generationSize = 64;
-    int ruleSetArrSize = 8;
-
     cout << "Enter a rule set number from 0-255: ";
     cin >> ruleSetNum;
 
