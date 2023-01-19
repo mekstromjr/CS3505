@@ -1,3 +1,8 @@
+The first one I found interesting because it moves from what looks organized and predictable, 
+    to something that appears, to a human at least, as being random.
+The second one I found interesting because it is comprised almost entirly of triangles, yet the pattern
+    doesn't seem to repeat itself. 
+
 Enter a rule set number from 0-255: 101
                                 #                               
  ############################## # ############################# 
