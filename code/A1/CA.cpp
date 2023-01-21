@@ -8,9 +8,9 @@ This builds a 1D cellular Automata using a specific rule provided by the user.
 using namespace std;
 
 /// @brief The number of generations the 1D Automota will run for
-const int generations = 50;
+const int generations = 500;
 /// @brief The size (width) of each generation.
-const int generationSize = 64;
+const int generationSize = 100;
 /// @brief The size of the rule set (do not modify)
 const int ruleSetArrSize = 8;
 

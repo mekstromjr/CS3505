@@ -1,0 +1,142 @@
+CS3505 Lecture Notes - January 19, 2023
+----------
+Topic: 
+
+int values[100] {1,2,3,4}; //After first 4 values, the rest of the 94 spaces are 0-padded by default
+
+Destructor
+    Cleans up the variable at the end of its scope
+    ~Type to override the default deconstructor
+        - Useful if you wanted to, for example, end a connection or 
+        close a file when the object's scope ends.
+
+-> operator
+    Allows you to directly access and assign a value to a memeber variable of a class.
+    eg myPoint->x = 10; //Assigns the value 10 to the variable 10 within the myPoint object
+
+Using Multiple Files
+    Each Class has 2 Files (usually)
+        1) Implementation in a .cpp file
+        2) an interface in a header file with a .h extension
+
+Header File
+    Header file essentailly says what methods and fields will be included in the .cpp file.
+        This allows for better organization in the implementation.
+    The header file is #include’d in .cpp files
+        - This is a very simple model
+        - During compilation, the .h text is (virtually) inserted into the .cpp file at the location of the include
+    Design Rules
+        - No implementation, justt forward decleration
+        - All instance variable MUST be declared in the header files. Variables declared in the .cpp file 
+            will be global
+    Eg. 
+        class Ex {
+        private:
+            int x; // data member
+        public:
+            Ex(int x); // constructor
+            void setX(int x); //Method/setter
+        };
+    
+    Note: in the .cpp file every method/constructor will need to be precluded by the namespace of the header
+        eg. Point::Point
+    
+    #include
+        - Behind the scenes this essentailly takes the contents of the file referenced and adds it to this file.
+        - C style system headers are <thing.h>
+        - C++ style system headers are <thing> for clarity.
+        - You can use #include "file.cpp". AVOID THE TEMEPTATION. Can lead to large files and long compilation times.
+        -eg.
+            #include "Local.h" //Local is the header file name locally
+            #include <systemheader> //used for system headers
+
+Redefinition issues
+    Lets say you want to have a class that does stuff with shapes. You have a shape class, square class 
+        (which includes the shape class) and a circle class (also includes shape). Then you include shape 
+        in your main file because you want to use shapes as well. This creates multiple definitions for the 
+        same thing which is bad.
+    Solution is Include Guards
+        If statement saying if this is not already included, add it.
+            #ifndef EX_H
+            #define EX_H   
+
+g++ Compilation
+    1) Compile the source
+    2) Link the files together
+
+    More Advanced Compilation
+        eg. g++ -c file.cpp
+            -c //Makes .o object file, without linking or making executable
+            -o //Makes Executable
+            -WALL //Stops compliation if any warnings occurs and displays them in the terminal.
+
+    Multi-file project compilation
+        - Complicated to list all files for linking during compialtion
+    Make
+        - A system for compliling/linking projects
+        - Uses a "Makefile" to define compilation Rules.
+        - Type "make" or "make exeName" in terminal to compile 
+            - add the exeName if you have multiple rules in your Makefile.
+        Basic Setup
+            "Thing to make" : "what it depends on"
+                "How to make it"
+            eg.
+                exeName: name.cpp dependent.h dependent2.cpp
+                    g++ -o point main.cpp point.cpp //Tab is necessary
+                
+                exe2Name: ...
+
+        More Advanced
+            Make Files
+                - Use multiple steps, one to complie, the other to link/make executable.
+                - If you call make Driver it will recursivly call other rules as needed if they exist.
+                eg.
+                    Driver: Driver.o dependent.o
+                        g++ -o Driver Driver.o dependent.o
+                    
+                    Driver.o: Driver.cpp dependent.h
+                        g++ -c Driver.cpp
+                    
+                    dependent.o: dependent.cpp dependent.h
+                        g++ -c dependent.cpp
+                - Clean rule: Make sure everything gets recompiled.
+                    clean:
+                        rm -f point *.0 
+                
+                - Telling the compiler where things are in the Makefile
+                    INCLUDE = ../include
+                    main.o: main.cpp INCLUDE/dependent.h 
+                        g++ ...
+                
+                Example Makefile
+                    CC = g++
+                    CFLAGS = -Wall
+                    INCLUDE = ../include
+                    point: main.o point.o
+                        $(CC) $(CFLAGS) -o point main.o point.o
+                    main.o: main.cpp $(INCLUDE)/point.h
+                        $(CC) $(CFLAGS) -I$(INCLUDE) -c main.cpp
+                    point.o: point.cpp $(INCLUDE)/point.h
+                        $(CC) $(CFLAGS) -I$(INCLUDE) -c point.cpp
+                    clean:
+                        rm -f point *.o 
+
+                Libraries
+                    - All the .o files mashed together
+                    - .a (archive) extension
+                    - To make...
+                        - ar command
+                        eg.
+                            library.a: file1.o file2.o
+                                ar -rcs library.a file1.o file2.o
+
+                    - Using a library
+                        When compiling the .cpp into .o files
+                            1. Path to the header files
+
+                            main.o: main.cpp $(POINT)/include/point.h
+                                $(CC) $(CFLAGS) -I$(POINT)/include -c main.cpp
+
+Design Patterns
+    Facade
+        - Little class to interface with ugly code 
