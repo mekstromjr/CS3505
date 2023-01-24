@@ -1,0 +1,88 @@
+CS3505 Lecture Notes - January 24, 2023
+----------
+Topic: 
+
+Recomendations:
+    - Look at Makefile posted under lecture 3
+
+
+A2
+-lz at the end of a linking line if getting "deflate" and other weird compilation errors
+
+Visually:
+    Spiral -> Project
+    HaruPDF -> Project (PDF.cpp)
+    So, 3 classes
+        1) Spiral (does spiral actions)
+        2) HaruPDF (does haru tasks)
+        3) Project (PDF.cpp) ()
+
+    Your A2 Folder
+        - Headers
+        - makefile
+        - etc.
+
+Spiral
+    - Adapt the math in the example code
+    - Spiral should be clockwise from 12 o'clock
+    - Spiral Math 
+        x position = centerX + (radius * cos(theta))
+        y position = centerX + (radius * sin(theta))
+        Note: c++ cos and sin theta, is in radians
+    - Needs
+        1) Center point (from constructor)
+        2) A radius (archemedies spiral????)
+        3) An angle 
+
+
+Using a Static Library (review lecture 5 slides)
+    - Need 3 things in specific spots
+    - Compiling from .cpp to .o just neads header information. Add an include path
+    - linking from .o to an executable needs:
+        1) All the .o files used by the program
+        2) A library path
+        3) A library name
+    -l[name] had the linker look for lib[name].a
+
+
+Makefile example
+Conquer: Ai.o Conquer.o #First so that simple make cmd gives us an executable
+    g++ -o Conquer Ai.o Conquer.o -L./Smart/lib -lsmart
+
+Conquer.o: Conquer.cpp AI.h
+    g++ -I./Smart/include -c Conquer.cpp
+
+AI.o: AI.cpp AI.h
+    g++ -I./Smart/include -c AI.cpp
+
+
+Code Style
+    while - used when you don't necessarily know how many times something will run
+
+
+Where are the things being stored?
+    - Member Variables: stack
+    - Pointers: stack
+    - Local variable: stack
+    - 'new' variables: heap
+
+
+const
+    - const says things cannot be altered
+    - infectious, when you do it once you often need more of them
+    - modifies the thing to the left 
+        (unless there's nothing to the left, then it modifies the thing to the right)
+    - Return
+        prevents you from changing the state of the object
+            (eg operator[] const //cannot change value inside array)
+    - const int val() {...} // You are getting a constant value out
+    - int val() const {...} // Method cannot modify state?
+    - Parameters
+        - use This
+        - eg.
+            void method( const BigObject& b) {...} //Method will not modify BigObject&
+
+    
+    eg.
+    const int pi = 3; // must initialize
+    const int * vp; // * to const int, pointer can change, int at the end of the pointer cannot
