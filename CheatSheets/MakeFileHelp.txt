@@ -1,0 +1,28 @@
+target: dependency
+    command
+
+
+Make Variables
+    $(name) - variable to be placed into a command. Variables are all strings (no "" or '' needed)
+        placed in the variables location. Can be used in the target line or the command line
+        at top of file
+            name = some_string 
+    $@ - Variable for a command that copies the target name, in the below example $@ will be replaced with 'target'
+    eg.
+        /*Target Line */    target: target.o targetDependent1.o targetDependent2.h
+    	/*Command Line*/        $(CC) $(CFLAGS) -o $@ main.o Car.o
+
+Multiple targets in same target line - executes the command once for each target
+    eg. 
+        target1 target2: dependency
+            $(CC) $(CFLAGS) -o $@
+
+Clean Target
+    Useful tool for creating a "clean build"
+    -f flag means "force" ie. don't warn me about deleting and, if there's nothing to delete, don't tell me.
+    - *.o means all files with anything ended with .o
+    - rm main line is optional, but useful if your executable is called main
+
+clean:
+    rm -f *.o
+	rm -f main

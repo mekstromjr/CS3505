@@ -1,0 +1,18 @@
+
+Terminal Commands
+ls - lists members of the directory
+    -a shows all
+
+cd [path] - move to directory, if path is left blank, then it takes you to the system root
+
+rm - remove
+cp - copy
+mv - move or rename
+
+
+Compiler g++
+    Flags
+        -c: Takes .cpp/.h files and turns them into .o object files
+        -o: Takes .cpp/.h/.o files and compiles and links them into an executable
+        -Wall: Flag which gives a bunch of c++ compiler warnings if any are merited
+    
