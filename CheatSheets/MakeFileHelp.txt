@@ -12,7 +12,7 @@ Make Variables
         /*Target Line */    target: target.o targetDependent1.o targetDependent2.h
     	/*Command Line*/        $(CC) $(CFLAGS) -o $@ main.o Car.o
 
-Multiple targets in same target line - executes the command once for each target
+Multiple targets in same target line - executes the same command for each target when 'make target' is called
     eg. 
         target1 target2: dependency
             $(CC) $(CFLAGS) -o $@
@@ -21,7 +21,7 @@ Clean Target
     Useful tool for creating a "clean build"
     -f flag means "force" ie. don't warn me about deleting and, if there's nothing to delete, don't tell me.
     - *.o means all files with anything ended with .o
-    - rm main line is optional, but useful if your executable is called main
+    - rm main line is optional, but useful if you want to remove the executable as well
 
 clean:
     rm -f *.o

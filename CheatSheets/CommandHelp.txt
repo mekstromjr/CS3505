@@ -1,13 +1,25 @@
 
 Terminal Commands
 ls - lists members of the directory
-    -a shows all
+    -a shows all elements of directory
+    -R shows elements recursivly ie. everything in this directory and everything in its sub-directories
+
+tree - shows a cool tree representation of the filesystem from the current directory deeper
 
 cd [path] - move to directory, if path is left blank, then it takes you to the system root
 
 rm - remove
 cp - copy
 mv - move or rename
+pwd - show path to current directory
+
+
+Copy something from computer to container
+    On host machine:
+    $ docker ps
+        Copy the container Id
+    $ docker cp FILENAME CONTAINERID:PATH/IN/CONTAINER
+
 
 
 Compiler g++

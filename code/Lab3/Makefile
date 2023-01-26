@@ -1,21 +1,24 @@
 CC = g++
 CFLAGS = -Wall
-CARDIR = ./Carlib
+CARDIR = /workspaces/CS3505/code/Lab3/Carlib
 
 
 all: main
 
-main: main.o Car.o Car.h
-	$(CC) $(CFLAGS) -o main main.o Car.o
+main car: main.o libCar.a
+	$(CC) $(CFLAGS) -o $@ main.o Car.o
 
-main.o: main.cpp Car.h
-	$(CC) $(CFLAGS) -c main.cpp
+car2: main.o $(CARDIR)/lib/libCar.a
+	$(CC) $(CFLAGS) -L$(CARDIR)/lib -o $@ main.o libCar.a
 
-libCar.a: Car.o
-	ar -rcf libCar.a Car.o
-	
-Car.o: Car.cpp Car.h
-	$(CC) $(CFLAGS) -c Car.cpp
+main.o: main.cpp $(CARDIR)/include/Car.h
+	$(CC) $(CFLAGS) -I$(CARDIR)/include -c main.cpp
+
+Car.o: Car.cpp $(CARDIR)/include/Car.h
+	$(CC) $(CFLAGS) -I$(CARDIR) -c Car.cpp Car.h
+
+# libCar.a: Car.o
+# 	ar -rcf libCar.a Car.o
 
 
 clean:
