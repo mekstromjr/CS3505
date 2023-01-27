@@ -17,7 +17,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include "hpdf.h"
+#include "../libharu/include/hpdf.h"
 
 // argc is the number of arguments. Argv is an array of character arrays, or C-style strings.
 // If you call the program like ./pdfExample "Hello", then argv[1] would contain "Hello\0".
@@ -54,7 +54,7 @@ int main (int argc, char **argv)
     font = HPDF_GetFont (pdf, "Courier-Bold", NULL);
     HPDF_Page_SetTextLeading (page, 20);
     HPDF_Page_SetGrayStroke (page, 0);
-    HPDF_Page_SetFontAndSize (page, font, 30);
+    HPDF_Page_SetFontAndSize (page, font, 12);
     // Place characters one at a time on the page.
     for (i = 0; i < strlen (SAMP_TXT); i++) {
         char buf[2];
@@ -66,13 +66,14 @@ int main (int argc, char **argv)
         //
         // Pay careful attention to what wants radians and what is degrees
         // between haru and spiral and math functions.
-        rad1 = (angle2 - 90) / 180 * 3.141592;
+        //Converts degrees to radians
+        rad1 = (angle2 - 90) / 180 * 3.141592; 
         rad2 = angle2 / 180 * 3.141592;
 
         // The position of the character depends on the center point
         // plus the angle and the radius.
-        x = 210 /*Center x*/ + cos(rad2) * 150;
-        y = 300 /*Center y*/+ sin(rad2) * 150;
+        x = 210 /*Center x*/ + cos(rad2) * (150-i) /*circle radius*/;
+        y = 300 /*Center y*/+ sin(rad2) * (150-i) /*circle radius*/;
 
         // This ugly function defines where any following text will be placed
         // on the page. The cos/sin stuff is actually defining a 2D rotation
