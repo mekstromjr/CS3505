@@ -23,4 +23,3 @@ clean:
 	rm -f *.o
 	rm -f *.h.gch
 	rm -f spiralPDF
-	rm -f spiralPDF.pdf
