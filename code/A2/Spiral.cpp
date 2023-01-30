@@ -9,7 +9,12 @@
 Spiral::Spiral(double centerX, double centerY, double startingAngle, double radiusScalingFactor) {
     centX = centerX;
     centY = centerY;
-    radius = minRadius;
+
+    if(startingAngle * radiusScalingFactor < minRadius)
+        radius = minRadius;
+    else
+        radius = startingAngle * radiusScalingFactor;
+
     spiralX = centerX;
     spiralY = centerY;
 
@@ -23,7 +28,9 @@ Spiral::Spiral(double centerX, double centerY, double startingAngle, double radi
 
     radiusScaleFactor = radiusScalingFactor;
 
-    calculateNewPosition();
+    float radianAngle = (sinAngle / 180 * pi);
+    spiralX = centX + cos(radianAngle) * radius;
+    spiralY = centY + sin(radianAngle) * radius;
 }
 
 
