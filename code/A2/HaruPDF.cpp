@@ -10,15 +10,11 @@ HaruPDF::HaruPDF() {
     pdf = HPDF_New (NULL, NULL);
     page = HPDF_AddPage (pdf);
     HPDF_Page_SetSize (page, HPDF_PAGE_SIZE_A5, HPDF_PAGE_PORTRAIT);
-
-    font = NULL;
- 
+    font = HPDF_GetFont (pdf, fontName, NULL);; 
 }
 
 void HaruPDF::beginText() {
     HPDF_Page_BeginText (page);
-    
-    font = HPDF_GetFont (pdf, fontName, NULL);
     HPDF_Page_SetTextLeading (page, textLeading);
     HPDF_Page_SetGrayStroke (page, grayStroke);
     HPDF_Page_SetFontAndSize (page, font, textSize);

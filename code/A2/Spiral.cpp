@@ -1,6 +1,10 @@
-#include "Spiral.h"
+ /* 
+ *  Michael Ekstrom 
+ *  CS3505 
+ *  A2: Spiral
+ */
 #include <math.h>
-
+#include "Spiral.h"
 
 Spiral::Spiral(double centerX, double centerY, double startingAngle, double radiusScalingFactor) {
     centX = centerX;
