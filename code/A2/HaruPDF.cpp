@@ -4,6 +4,7 @@
  *  A2: Spiral
  */
 #include "HaruPDF.h"
+#include <math.h>
 
 HaruPDF::HaruPDF() {
     pdf = HPDF_New (NULL, NULL);
@@ -14,22 +15,23 @@ HaruPDF::HaruPDF() {
  
 }
 
-void HaruPDF::setTextMatrix(float cosRad1, float sinRad1, float sinNegRad1, float cosRad1b, float x, float y) {
-     HPDF_Page_SetTextMatrix(page, cosRad1, sinRad1, sinNegRad1, cosRad1b, x, y);
-}
-
 void HaruPDF::beginText() {
-    font = HPDF_GetFont (pdf, "Courier-Bold", NULL);
-    HPDF_Page_SetTextLeading (page, 20);
-    HPDF_Page_SetGrayStroke (page, 0);
-    HPDF_Page_SetFontAndSize (page, font, 30);
+    HPDF_Page_BeginText (page);
+    
+    font = HPDF_GetFont (pdf, fontName, NULL);
+    HPDF_Page_SetTextLeading (page, textLeading);
+    HPDF_Page_SetGrayStroke (page, grayStroke);
+    HPDF_Page_SetFontAndSize (page, font, textSize);
 }
 
 
-void HaruPDF::addCharacter(const char text) {
+void HaruPDF::addCharacter(const char& text, float x, float y, float rotation) {
+    rotation = rotation / 180 * 3.141592; //Converts rotation from degrees to radians
+    HPDF_Page_SetTextMatrix(page, cos(rotation), sin(rotation), -sin(rotation), cos(rotation), x, y);
+
     char buf[2];
     buf[0] = text; // The character to display
-    buf[1] = 0;
+    buf[1] = 0; 
     HPDF_Page_ShowText (page, buf);
 }
 
