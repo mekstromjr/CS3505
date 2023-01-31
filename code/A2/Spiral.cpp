@@ -9,11 +9,11 @@
 Spiral::Spiral(double centerX, double centerY, double startingAngle, double radiusScalingFactor) {
     centX = centerX;
     centY = centerY;
+    
+    radius = startingAngle * radiusScalingFactor;
 
-    if(startingAngle * radiusScalingFactor < minRadius)
+    if(radius < minRadius)
         radius = minRadius;
-    else
-        radius = startingAngle * radiusScalingFactor;
 
     spiralX = centerX;
     spiralY = centerY;
@@ -24,13 +24,10 @@ Spiral::Spiral(double centerX, double centerY, double startingAngle, double radi
     
     //Scale starting angle to be [0-360] and convert spiral angle to a sin/cos angle
     spiralAngle = ((int)startingAngle%360);
-    sinAngle = 90 - startingAngle;
 
     radiusScaleFactor = radiusScalingFactor;
 
-    float radianAngle = (sinAngle / 180 * pi);
-    spiralX = centX + cos(radianAngle) * radius;
-    spiralY = centY + sin(radianAngle) * radius;
+    calculateNewPosition();
 }
 
 
@@ -47,17 +44,16 @@ double Spiral::getSpiralY() {
 }
 
 Spiral& Spiral::operator+=(float deltaAngle) {
-    sinAngle -= deltaAngle;
     spiralAngle += deltaAngle;
+
+    radius = spiralAngle * radiusScaleFactor;
     calculateNewPosition();
     return *this;
 }
 
 
 void Spiral::calculateNewPosition() {
-    float radianAngle = (sinAngle / 180 * pi);
-    radius = minRadius + (-sinAngle * radiusScaleFactor);
-
+    float radianAngle = -(spiralAngle - 90) / 180 * pi;
     spiralX = centX + cos(radianAngle) * radius;
     spiralY = centY + sin(radianAngle) * radius;
 }

@@ -19,7 +19,6 @@ class Spiral {
         //Current Position on spiral curve
         double spiralX;
         double spiralY;
-        double sinAngle;
         double spiralAngle;
         double radius;
         double radiusScaleFactor;

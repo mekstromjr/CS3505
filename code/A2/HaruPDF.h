@@ -5,7 +5,7 @@
  */
 #ifndef HaruPDF_H
 #define HaruPDF_H
-#include "hpdf.h"
+#include "../libharu/include/hpdf.h"
 
 class HaruPDF {
     private:

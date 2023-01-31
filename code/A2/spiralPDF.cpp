@@ -21,8 +21,8 @@ using namespace std;
 /// @return 0 if run successfully
 int main(int argc, char **argv) {
 
-    const int centerX = 200;
-    const int centerY = 310;
+    const int centerX = 0;
+    const int centerY = 0;
     const float scaleFactor = 1; //How quickly the spiral grows - Values between 0.1 and 0.2 work best
     const float startingAngle = 90; //In degrees
 
@@ -42,11 +42,11 @@ int main(int argc, char **argv) {
     // Place characters one at a time on the page.
     for (unsigned int i = 0; i < strlen (spiralText); i++) {
         pdf.addCharacter(spiralText[i], spiral.getSpiralX(), spiral.getSpiralY(), 
-            360-spiral.getSpiralAngle()/*Convert Spiral Angle to normal Angle*/);
+            360 - spiral.getSpiralAngle()/*Convert Spiral Angle to normal Angle*/);
 
         //Change spiral angle, inversly proportional to the radius length.
         float radiusLength = sqrt(pow(spiral.getSpiralX()-centerX,2)+pow(spiral.getSpiralY()-centerY,2));
-        spiral += 1000/radiusLength; 
+        spiral += 1200/radiusLength; 
     }
 
     pdf.endText();
