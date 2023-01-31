@@ -23,7 +23,7 @@ Spiral::Spiral(double centerX, double centerY, double startingAngle, double radi
         startingAngle = -startingAngle;
     
     //Scale starting angle to be [0-360] and convert spiral angle to a sin/cos angle
-    spiralAngle = ((int)startingAngle%360);
+    spiralAngle = startingAngle;
 
     radiusScaleFactor = radiusScalingFactor;
 

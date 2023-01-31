@@ -21,14 +21,13 @@ using namespace std;
 /// @return 0 if run successfully
 int main(int argc, char **argv) {
 
-    const int centerX = 0;
-    const int centerY = 0;
-    const float scaleFactor = 1; //How quickly the spiral grows - Values between 0.1 and 0.2 work best
+    const int centerX = 200;
+    const int centerY = 310;
+    const float scaleFactor = 0.1; //How quickly the spiral grows - Values between 0.1 and 0.2 work best
     const float startingAngle = 90; //In degrees
 
     HaruPDF pdf;
     Spiral spiral(centerX, centerY, startingAngle, scaleFactor);
-    cout << spiral.getSpiralX() << endl;
     char filename[256];
     char spiralText[1000];
 
