@@ -1,0 +1,51 @@
+
+RULE OF THREE
+    When a class manages a resource
+        - new memory
+        - open file
+    It needs an explicit
+        1) Deconstructor //ie. ~Darray() { delete [] data; ...}
+        2) Copy constructor //ie. DArray(const DArray& other) {...}
+        3) Assignment Operator (= operator Overload)
+            Copy and Swap Idiom
+                DArray& operator=(const DArray& other) {
+                    swap(data_, other.data_);
+                    swap(len_, other.len_);
+                    return *this;
+                }
+
+Trie (pronounced try or tree)
+
+Make Trie from ["an", "ant", "ban"]
+"an"
+Empty Trie (root node) (isWord = false) -> need 'a' branch -> add 'a' node (isWord = false) -> add 'n' branch (isWord = true, 'an' is a word)
+
+"ant"
+(word is longer than 2 letters, word flag does not necessarily indicate a tree leaf)
+root -> a branch -> n branch (isWord = true) -> add 't' branch (isWord = true)
+
+Branch is an array of pointers to Node class
+
+idea, get index of letter in the branch array using  (character - a) = index. eg. b-a = 1, a-a = 0, c-a = 2 etc.
+
+
+Peer Review
+    - Find something specific and helpful to say
+    - Answer the questions posted in the assignment.
+
+
+Template Coding
+    - Recipies for generating code
+    - Code not generated until compile times
+    - Code can all be in .h file
+    - powerful and rigorous
+    - Similar to java generics. 
+    - Note: careful using namespace std; because if the namespace already 
+        contains a function overload of one of yours then their can be abiguity
+    - Types can be infered, however, for clarity, generally include
+    eg.
+        template <typename T>
+
+    - specification: create part of a template to deal with an edge type case
+        template <>
+        char max<char> (char value1, char value2) {...}
