@@ -19,4 +19,4 @@ class myClass {
         count += delta;
         return true;
     }
-}
+};

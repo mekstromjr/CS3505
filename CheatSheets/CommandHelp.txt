@@ -27,4 +27,7 @@ Compiler g++
         -c: Takes .cpp/.h files and turns them into .o object files
         -o: Takes .cpp/.h/.o files and compiles and links them into an executable
         -Wall: Flag which gives a bunch of c++ compiler warnings if any are merited
+
+Run executable
+    ./{executable}
     

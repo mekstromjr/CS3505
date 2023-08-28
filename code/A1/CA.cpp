@@ -1,116 +1,92 @@
-/*
-Michael Ekstrom
-A1: 1D Cellular Automata
-This builds a 1D cellular Automata using a specific rule provided by the user.
+/* 
+*  Michael Ekstrom
+*  A1
+*  This program generates a 1D cellular automata based on a rule chosen by the user.
 */
-
 #include <iostream>
-using namespace std;
+using std::scanf;
+using std::endl;
+using std::cout;
 
-/// @brief The number of generations the 1D Automota will run for
-const int generations = 500;
-/// @brief The size (width) of each generation.
-const int generationSize = 100;
-/// @brief The size of the rule set (do not modify)
-const int ruleSetArrSize = 8;
+/// @brief Controls how many generations the program will generate
+const static int GENERATIONS = 50;
+/// @brief Controls how many cells wide each generation is
+const static int GENERATION_SIZE = 64;
+/// @brief Sets the size of the rule set array
+const static int RULE_ARRAY_SIZE = 8;
 
-/// @brief Prints to the console the generation input. " " if the index contained 0, "#" if it contained 1.
-/// @param arr - Array Containing the current generation
-/// @param arrSize - The size of the input Array (usually const int generationsSize)
-void displayGeneration(int arr[], int arrSize) {
-    for(int i = 0; i < arrSize; i++) {
-        if(arr[i] == 0)
-            cout << " ";
-        else
-            cout << "#";
-    }
-    cout << endl;
-}
+//Function Declarations
+void convertRuleSetNumberToRuleSetArray(int ruleSetNumber, int ruleSetArray[8]);
+void displayCurrentGeneration(int currentGeneration[], int generationSize = GENERATION_SIZE);
+int  convertNeighborhoodToIndex(int left, int center, int right);
+void computeNextGeneration(int currentGeneration[], int nextGeneration[], int generationSize, int ruleSetArray[]);
 
-/// @brief Takes an integer from 0-255 and converts it into an array containing that numbers
-/// binary digits from left to right.
-/// @param ruleSet An integer from 0-255 representing the rule set.
-/// @param ruleSetArr An array for holding the rule set represented in binary.
-void convertRuleSetNumberToRuleSetArray (int ruleSet, int ruleSetArr[8]) {
-    for(int i = 7; i >= 0; i--) {
-        int factor = 1;
-        for (int j = i; j > 0; j--) 
-            factor *= 2;
-
-        if(ruleSet >= factor) {
-            ruleSetArr[i] = 1;
-            ruleSet -= factor;
-        } else {
-            ruleSetArr[i] = 0;
-        }
-    }
-}
-
-/// @brief Takes three integers and returns the index in the ruleset coresponding with their situation.
-/// @param left
-/// @param current 
-/// @param right 
-/// @return 
-int convertNeighborhoodToIndex(int left, int current, int right) {
-    int result = 0;
-
-    result += left * 4;
-    result += current * 2;
-    result += right * 1;
-
-    return result;
-}
-
-/// @brief Takes the current generation and, using the rule set produces the next generation, storing it in nextGen.
-/// @param curGen 
-/// @param nextGen 
-/// @param arrSize - size (width) of the generation.
-/// @param ruleSet - An array containing the binary representation of the rule set.
-void computeNextGeneration(int curGen[], int nextGen[], int arrSize, int ruleSet[]) {
-    nextGen[0] = curGen[0];
-    nextGen[arrSize-1] = curGen[arrSize-1];
-
-    for(int i = 1; i < arrSize - 1; i++){
-        int ruleIndex = convertNeighborhoodToIndex(curGen[i-1], curGen[i], curGen[i+1]);
-        nextGen[i] = ruleSet[ruleIndex];
-    }
-}
-
-/// @brief This is the 1D automota driver method.
-/// @return 
+/// @brief Program entry point for generating a 1D cellular Automata
 int main() {
-    int ruleSetNum = 0;
-    cout << "Enter a rule set number from 0-255: ";
-    cin >> ruleSetNum;
-
-    if(ruleSetNum < 0 || ruleSetNum > 255) {
-        cout << "Number entered was invalid or outside of bounds (0-255)" << endl;
+    int ruleSetNumber(0);
+    cout << "Please enter a rule set number from 0-255: ";
+    
+    //scanf returns 1 if it parsed the correct data from the input, so anyting that isn't an
+    //  integer is rejected. After that bounds are checked on the input from [0-255].
+    if(scanf("%d",&ruleSetNumber) == 0 || ruleSetNumber < 0 || ruleSetNumber > 255) {
+        cout << "Entry is outside of bounds [0-255] or is not a number." << endl;
         return 0;
     }
+    int ruleArr[RULE_ARRAY_SIZE]{ };
+    convertRuleSetNumberToRuleSetArray(ruleSetNumber,ruleArr);
 
-    int ruleSet[ruleSetArrSize];
-    convertRuleSetNumberToRuleSetArray(ruleSetNum, ruleSet);
+    int* curGen  = new int[GENERATION_SIZE] { };
+    int* nextGen = new int[GENERATION_SIZE] { };
+    curGen[GENERATION_SIZE/2] = 1; //Adds a single 1 to center of starting population.
 
-    int * curGen  = new int[generationSize];
-    int * nextGen = new int[generationSize];
-    
-    //Initialize First Generation
-    for(int i = 0; i < generationSize; i++) {
-        curGen[i] = 0;
-        if(i == generationSize/2)
-            curGen[i] = 1;
-    }
+    for(int i = 0; i < GENERATIONS; i++) {
+        displayCurrentGeneration(curGen);
+        computeNextGeneration(curGen, nextGen, GENERATION_SIZE, ruleArr);
 
-    for(int i = 0; i < generations; i++) {
-        displayGeneration(curGen, generationSize);
-        computeNextGeneration(curGen, nextGen, generationSize, ruleSet);
-
-        //Swap the pointer between the curGen and nextGen arrays so that what was curGen now is the buffer for the nextGen and visa versa
-        int * tmp = curGen;
+        //Swaps the pointer between the curGen and nextGen arrays so that what 
+        //  was curGen now is the buffer for the nextGen and visa versa
+        int* tmp = curGen;
         curGen = nextGen;
         nextGen = tmp;
     }
-    displayGeneration(curGen, generationSize);
     return 0;
 }
 
+/// @brief This function populates the next generation array using the rule set and the current genration.
+void computeNextGeneration(int curGen[], int nextGen[], int genSize, int ruleArr[]) {
+    //Cells on each end stay the same
+    nextGen[0] = curGen[0];
+    nextGen[genSize-1] = curGen[genSize-1];
+
+    for(int i = 1; i < genSize - 1; i++) 
+        nextGen[i] = ruleArr[convertNeighborhoodToIndex(curGen[i-1], curGen[i], curGen[i+1])];
+}
+
+/// @brief This funciton converts an integer between [0-255] to binary in an array.
+void convertRuleSetNumberToRuleSetArray(int ruleNum, int ruleArr[]) {
+    for(int i = 0; ruleNum > 0; i++) {
+        ruleArr[i] = ruleNum%2;
+        ruleNum /= 2;
+    }
+}
+
+/// @brief This function gets the index of the rule from the neighbors of the current index.
+int convertNeighborhoodToIndex(int left, int current, int right) {
+    int index = 0;
+    index += left * 4;
+    index += current * 2;
+    index += right * 1;
+    return index;
+}
+
+/// @brief This function prints the current generation
+void displayCurrentGeneration(int curGen[], int genSize) {
+    for(int i = 0; i < genSize; i++) {
+        if(curGen[i] == 0) {
+            cout << " ";
+        } else  {
+            cout << "#";
+        }
+    }
+    cout << endl;
+}                                                                        

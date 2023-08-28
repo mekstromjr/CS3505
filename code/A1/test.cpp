@@ -1,18 +1,24 @@
 #include <iostream>
 
-using namespace std;
-
-int convertNeighborhoodToIndex(int left, int current, int right) {
-    int result = 0;
-    result += left * 4;
-    result += current * 2;
-    result += right * 1;
-
-    return result;
-}
+using std::cout;
+using std::scanf;
+using std::endl;
+using std::string;
 
 
 int main() {
+    int num = 19;
+    int biArr[8] { };
+    int index = 7;
+    while(num > 0) {
+        biArr[index] = num % 2;
+        num /= 2;
+        index--;
+    }
 
+    for(int i = 0; i < 8; i++)
+        cout << biArr[i];
+
+    cout << endl;
     return 0;
 }

@@ -1,1 +1,1 @@
-g++ -o CA CA.cpp
+g++ -Wall -o CA CA.cpp

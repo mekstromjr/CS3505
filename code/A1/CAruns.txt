@@ -3,7 +3,7 @@ The first one I found interesting because it moves from what looks organized and
 The second one I found interesting because it is comprised almost entirly of triangles, yet the pattern
     doesn't seem to repeat itself. 
 
-Enter a rule set number from 0-255: 101
+Please enter a rule set number from 0-255: 101
                                 #                               
  ############################## # ############################# 
                               ####                            # 
@@ -56,7 +56,7 @@ Enter a rule set number from 0-255: 101
  ###### # ## #####  ## #     # # ##  ## ###  ######   ###  #  # 
       #### ##    #   ### ### #### #   ##  #       # #   #  #  # 
 
-Enter a rule set number from 0-255: 129
+Please enter a rule set number from 0-255: 129
                                 #                               
  ##############################   ############################# 
   ############################  #  ###########################  
