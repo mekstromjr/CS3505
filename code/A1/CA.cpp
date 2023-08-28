@@ -9,17 +9,17 @@ using std::endl;
 using std::cout;
 
 /// @brief Controls how many generations the program will generate
-const static int GENERATIONS = 50;
+const int GENERATIONS = 50;
 /// @brief Controls how many cells wide each generation is
-const static int GENERATION_SIZE = 64;
+const int GENERATION_SIZE = 64;
 /// @brief Sets the size of the rule set array
-const static int RULE_ARRAY_SIZE = 8;
+const int RULE_ARRAY_SIZE = 8;
 
 //Function Declarations
-void convertRuleSetNumberToRuleSetArray(int ruleSetNumber, int ruleSetArray[8]);
-void displayCurrentGeneration(int currentGeneration[], int generationSize = GENERATION_SIZE);
-int  convertNeighborhoodToIndex(int left, int center, int right);
 void computeNextGeneration(int currentGeneration[], int nextGeneration[], int generationSize, int ruleSetArray[]);
+int  convertNeighborhoodToIndex(int left, int center, int right);
+void convertRuleSetNumberToRuleSetArray(int ruleSetNumber, int ruleSetArray[RULE_ARRAY_SIZE]);
+void displayCurrentGeneration(int currentGeneration[], int generationSize = GENERATION_SIZE);
 
 /// @brief Program entry point for generating a 1D cellular Automata
 int main() {
@@ -32,7 +32,7 @@ int main() {
         cout << "Entry is outside of bounds [0-255] or is not a number." << endl;
         return 0;
     }
-    int ruleArr[RULE_ARRAY_SIZE]{ };
+    int ruleArr[RULE_ARRAY_SIZE] { };
     convertRuleSetNumberToRuleSetArray(ruleSetNumber,ruleArr);
 
     int* curGen  = new int[GENERATION_SIZE] { };
@@ -62,14 +62,6 @@ void computeNextGeneration(int curGen[], int nextGen[], int genSize, int ruleArr
         nextGen[i] = ruleArr[convertNeighborhoodToIndex(curGen[i-1], curGen[i], curGen[i+1])];
 }
 
-/// @brief This funciton converts an integer between [0-255] to binary in an array.
-void convertRuleSetNumberToRuleSetArray(int ruleNum, int ruleArr[]) {
-    for(int i = 0; ruleNum > 0; i++) {
-        ruleArr[i] = ruleNum%2;
-        ruleNum /= 2;
-    }
-}
-
 /// @brief This function gets the index of the rule from the neighbors of the current index.
 int convertNeighborhoodToIndex(int left, int current, int right) {
     int index = 0;
@@ -79,14 +71,20 @@ int convertNeighborhoodToIndex(int left, int current, int right) {
     return index;
 }
 
+/// @brief This funciton converts an integer between [0-255] to binary in an array.
+void convertRuleSetNumberToRuleSetArray(int ruleNum, int ruleArr[]) {
+    for(int i = 0; ruleNum > 0; i++) {
+        ruleArr[i] = ruleNum%2;
+        ruleNum /= 2;
+    }
+}
+
 /// @brief This function prints the current generation
 void displayCurrentGeneration(int curGen[], int genSize) {
-    for(int i = 0; i < genSize; i++) {
-        if(curGen[i] == 0) {
+    for(int i = 0; i < genSize; i++)
+        if(curGen[i] == 0)
             cout << " ";
-        } else  {
+        else  
             cout << "#";
-        }
-    }
     cout << endl;
 }                                                                        
