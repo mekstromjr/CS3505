@@ -5,7 +5,7 @@ template <typename T>
 class ArrayList {
     private:
        int size_;
-       T *data_ = nullptr;
+       T* data_ = nullptr;
        int capacity_ = initialSize;
 
     public:

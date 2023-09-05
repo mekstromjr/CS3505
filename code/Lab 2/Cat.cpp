@@ -3,11 +3,11 @@
 class Cat {
 
     private:
-        int lives = 9000;
-        int myVar = 10;
+        int lives{9};
 
     public:
-        Cat(int startLives, int more) : lives(startLives), myVar(more) { }
+        Cat() : lives(10) { }
+        Cat(int startLives) : lives(startLives) { }
 
         void reportLives() {
             std::cout << "Lives Remaining: " << lives << std::endl;
@@ -22,17 +22,25 @@ class Cat {
             return *this;
         }
 
+        Cat& operator/(int amount) {
+            lives /= amount;
+            return *this;
+        }
+
 
 };
 
 
 int main() {
-    Cat cat(9, 10);
+    Cat cat;
     cat.reportLives();
     cat.loseLife();
     cat.reportLives();
 
     (cat += 1) += 1;
     cat.reportLives();
+
+    Cat newCat = cat / 3;
+    newCat.reportLives();
     return 0;
 }

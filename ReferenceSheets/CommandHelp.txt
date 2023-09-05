@@ -3,6 +3,7 @@ Terminal Commands
 ls - lists members of the directory
     -a shows all elements of directory
     -R shows elements recursivly ie. everything in this directory and everything in its sub-directories
+    -l long version of filenames. Note: the rwx (read/write/execute) flag at the begining indicates privilages, owner, group, and all.
 
 tree - shows a cool tree representation of the filesystem from the current directory deeper
 
@@ -30,4 +31,20 @@ Compiler g++
 
 Run executable
     ./{executable}
-    
+
+
+echo
+    by default prints its arguemnts (input stream) to the terminal (output stream)
+
+program < source
+    sets the input stream for a program
+
+program > destination
+    sets the output stream for a program
+        >> 
+    appends instead of overwritting
+
+cat [filname]
+    con CAT enates 
+    by default can print contents of a file to the terminal
+    by overriding the output stream can be used to edit file or can be used to copy contents of one file into another

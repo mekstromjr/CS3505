@@ -1,0 +1,48 @@
+Encapsulation: 
+    Data is encased in an overarching class which controls how we interact.
+Abstraction:
+    Hiding away details we don't need to know about
+Inheritance:
+    Objects include the same functions as their parent objects
+Polymorphism:
+    Program uses most relevent version of somethign witht he same name as some part of the parent class
+        eg. java toString in ArrayList vs. toString in Object.
+
+
+struct
+    Collect related information into a named type struction.
+        eg. 
+        struct HealthInfo
+        int age;
+        int weight;
+        int height;
+        char* eyeColor;
+    Fails abstraction - need to have some knowledge about internal structure
+    Fails encapuslation - Internals are known
+
+
+Class in C++
+    Constructor
+        Job is to put the object into an active, correct state.
+            ie. Initialization, starting calculations, etc.
+        Note: when initializing an object Point p1() WRONG! Compiler thinks your declaring a funciton, not an object constructor with no perameters
+        Initialization list:
+            after constructor declaration ':' followed by a comma seperated list of members and their initialzed value.
+        To allow for default constructor to be built by the compiler while still having a constructor you made 
+            Point() = default;
+        If you have an object pointer you can acess data members and functions with '->' (arrow) notation instead of '.'
+            General Rule use . for objects arrow for pointers
+
+    this - keyword
+        represents a pointer to the current instance of the object
+
+    Getter/setter  
+        Why is this contentious? Breaks encapsulation
+        Think about what things should be used outside of the class. Don't just make getters and setters for everything mindlessly.
+    
+    No Garbage collection - Java counts how many references to an object exist and deletes the obj when that num is 0
+    C++ objects are on the stack and removed when we leave scope.
+
+    Overloading operators
+        operator*
+        newpt = pt * 2.0; // same as newpt = pt.operator*(2.0);
