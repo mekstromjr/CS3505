@@ -1,32 +1,25 @@
+/**
+* Michael Ekstrom
+* CS3505
+* A2: Making a Class
+*/
 
-#ifndef SINE_H
-#define SINE_H
-    #include "Sine.h"
-#endif
-
-#ifndef IO_STREAM
-#define IO_STREAM
-    #include <iostream>
-#endif
+#include "Sine.h"
+#include <iostream>
 
 using std::cout;
 using std::endl;
-using std::string;
 
-const int ITERATIONS = 360;
-const int AMPLITUDE = 1;
-const int WAVELENGTH = 360;
-const int INCREMENT = 1;
+const double ITERATIONS = 360;
+const double AMPLITUDE = 36;
+const double WAVELENGTH = 180;
+const double INCREMENT = 0.5;
 
 int main() {
-    Sine s(AMPLITUDE, WAVELENGTH, INCREMENT);
-    cout << "(x, y)" << endl;
-    for(int i = 0; i < ITERATIONS; i++) {
-        cout << s << endl;
-        s++;
+    Sine sin(AMPLITUDE, WAVELENGTH, INCREMENT);
+    for(int i = 0; i <= ITERATIONS; i++) {
+        cout << sin++ << endl;
     }
-
-    cout << s << endl;
 
     return 0;
 }

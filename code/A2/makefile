@@ -1,18 +1,18 @@
 # Michael Ekstrom 
 # CS3505 
 CC = g++
-CFLAGS = -Wall
+CFLAGS = 
 
 testSine: Sine.cpp testSine.cpp Sine.h
 	$(CC) $(CFLAGS) -o $@ $@.cpp Sine.cpp
 
 
-test: test.cpp
-	$(CC) $(CFLAGS) -o $@ $@.cpp 
+test: testSine
+	./testSine > SineData.txt
 
 
 clean:
 	rm -f testSine
-	rm SineData.txt
-	rm test
+	rm -f SineData.txt
+	rm -f test
 	touch SineData.txt
