@@ -6,9 +6,8 @@
 #include "Sine.h"
 #include <cmath>
 
-    Sine::Sine(double amplitude, double wavelength, double increment) : 
-        amplitude(amplitude), wavelength(wavelength), increment(increment), angle(0) {
-
+    Sine::Sine(double amplitude, double wavelength, double increment) : angle(0),
+        amplitude(amplitude), wavelength(wavelength), increment(increment) {
     }
 
     Sine::~Sine() {}
