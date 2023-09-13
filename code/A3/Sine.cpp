@@ -10,7 +10,7 @@
         amplitude(amplitude), wavelength(wavelength), increment(increment) {
     }
 
-    Sine::~Sine() {}
+    Sine::~Sine() { }
 
     double Sine::currentAngle() {
         return angle;

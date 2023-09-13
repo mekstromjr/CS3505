@@ -1,6 +1,6 @@
 # Michael Ekstrom 
 # CS3505 
-# A3 sinePDF
+# A3: Facades and Makefiles
 CC = g++
 CFLAGS = -Wall
 LIBHARU = ./libharu
@@ -20,12 +20,6 @@ HaruPDF.o: HaruPDF.cpp HaruPDF.h
 
 Sine.o: Sine.cpp Sine.h
 	$(CC) $(CFLAGS) -c Sine.cpp
-
-pdfExample: pdfExample.o
-	$(CC) $(CFLAGS) -o example pdfExample.o -L$(LIBHARU)/src -lhpdfs
-
-pdfExample.o: pdfExample.cpp
-	$(CC) $(CFLAGS) -c pdfExample.cpp -I$(LIBHARU)/include
 
 clean:
 	rm -f *.o
