@@ -26,3 +26,9 @@ Clean Target
 clean:
     rm -f *.o
 	rm -f main
+
+
+Libraries
+    Should be included last on complile line because they may or may not be used.
+    -lName - defines library name to link. Convention is -lName would convert to libName.a
+    -L(PATH) - Tells the linker where to look for library files

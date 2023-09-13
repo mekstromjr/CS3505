@@ -1,26 +1,40 @@
+# Michael Ekstrom 
+# CS3505 
 CC = g++
 CFLAGS = -Wall
-CARDIR = /workspaces/CS3505/code/Lab3/Carlib
+LIB = $(CARDIR)lib/
+INCLUDE = $(CARDIR)include/
+SRC = $(PWD)src/
+CARDIR = $(PWD)Carlib/
+PWD = ./
 
+car: $(SRC)main.o
+	$(CC) $(CFLAGS) -o $@ $(SRC)main.o -L$(LIB) -lCar 
 
-all: main
+Car.o: $(SRC)Car.cpp $(INCLUDE)Car.h
+	$(CC) $(CFLAGS) -c $(SRC)Car.cpp -I$(INCLUDE)
+	mv Car.o $(SRC)
 
-main car: main.o libCar.a
-	$(CC) $(CFLAGS) -o $@ main.o Car.o
+main.o: $(SRC)main.cpp $(INCLUDE)Car.h
+	$(CC) $(CFLAGS) -c $(SRC)main.cpp -I$(INCLUDE)
+	mv main.o $(SRC)
+	
+test: car log.txt
+	./car > log.txt
 
-car2: main.o $(CARDIR)/lib/libCar.a
-	$(CC) $(CFLAGS) -L$(CARDIR)/lib -o $@ main.o libCar.a
+libCar.a: $(INCLUDE)Car.h $(SRC)Car.o 
+	ar -rcf libCar.a $(SRC)Car.o
+	mv libCar.a $(LIB)
 
-main.o: main.cpp $(CARDIR)/include/Car.h
-	$(CC) $(CFLAGS) -I$(CARDIR)/include -c main.cpp
+log.txt:
+	touch log.txt
 
-Car.o: Car.cpp $(CARDIR)/include/Car.h
-	$(CC) $(CFLAGS) -I$(CARDIR) -c Car.cpp Car.h
-
-# libCar.a: Car.o
-# 	ar -rcf libCar.a Car.o
-
+move:
+	touch mvTest.txt
+	mv mvTest.txt $(SRC)
 
 clean:
-	rm -f *.o
-	rm -f main
+	rm -f $(SRC)*.o
+	rm -f car
+	rm -f log.txt
+	rm -f $(SRC)mvTest.txt

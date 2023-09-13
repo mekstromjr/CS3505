@@ -3,7 +3,7 @@
 CC = g++
 CFLAGS = 
 
-testSine: Sine.cpp testSine.cpp Sine.h
+testSine: testSine.cpp Sine.cpp Sine.h
 	$(CC) $(CFLAGS) -o $@ $@.cpp Sine.cpp
 
 

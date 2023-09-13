@@ -1,16 +1,15 @@
-#ifndef Car_H
-#define Car_H
+#ifndef CAR_H
+#define CAR_H
 
 class Car {
+private:
     double speed;
-    
-    
-    public:    
-        Car(double speed);
 
-        void speedUp();
-        void slow();
-        void drive();
-
+public:
+    Car(double speed);
+    void drive();
+    void slow();
+    void speedUp();
 };
+
 #endif

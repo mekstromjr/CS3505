@@ -1,6 +1,7 @@
 # Michael Ekstrom 
 # CS3505 
 # A2: Spiral
+#PATHS ARE WRONG - THIS MAKEFILE DOES NOT WORK!! Use Lab3 Makefile as an example
 CC = g++
 CFLAGS = -Wall
 INCLUDE = ../libharu/include/
