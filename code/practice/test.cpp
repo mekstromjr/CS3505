@@ -4,19 +4,12 @@ using namespace std;
 
 
 int main() {
-    
-
-
+    cout << "Enter a Number" << endl;
+    int i(0);
+    if((cin >> i)) {
+        cout << "true" << endl;
+    } else {
+        cout << "false" << endl;
+    }
+    return 0;
 }
-
-class myClass {
-    public:
-    int count;
-    myClass() {
-        count = 0;
-    }
-    bool changeIt(int delta) {
-        count += delta;
-        return true;
-    }
-};
