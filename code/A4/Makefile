@@ -3,7 +3,7 @@
 # A4: A Trie and Rule-of-Three 
 CC = g++
 CFLAGS = -g -Wall -fsanitize=undefined -fsanitize=address
-INCLUDE = $(PROJECT)include/
+INCLUDE = $(PROJECT)
 PROJECT = ./
 
 runSmall: TrieTest
