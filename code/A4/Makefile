@@ -12,6 +12,12 @@ runSmall: TrieTest
 runLarge: TrieTest
 	./TrieTest largeDictionary.txt query.txt
 
+runBadArgs: TrieTest
+	./TrieTest bad.txt dne.txt
+
+runTooFewArgs: TrieTest
+	./TrieTest
+
 TrieTest: TrieTest.o Trie.o
 	$(CC) $(CFLAGS) -o TrieTest TrieTest.o Trie.o
 
@@ -20,10 +26,6 @@ Trie.o: Trie.cpp $(INCLUDE)Trie.h
 
 TrieTest.o: TrieTest.cpp $(INCLUDE)Trie.h
 	$(CC) $(CFLAGS) -c TrieTest.cpp -I$(INCLUDE)
-
-test: test.cpp $(INCLUDE)Trie.h
-	$(CC) $(CFLAGS) -o test test.cpp -I$(INCLUDE)
-	./test
 
 clean:
 	rm -f *.o

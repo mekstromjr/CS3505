@@ -52,35 +52,49 @@ int main(int argc, char **argv) {
     dictionaryFile.close();
     queryFile.close();
 
-    //----------------- Rule-of-3 testing ----------------------
+    //----------------- Rule-of-3 testing ----------------------//
     // /*
     string words[8] {"a", "an", "ant", "aunt", "ban", "can", "yell", "zebra"};
     Trie og { };
     for(string s : words)
         og.addWord(s);
 
-    //Copy Constructor
-    cout << "Copy constructor independence test: ";
+    //Copy Constructor Tests
     Trie duplicate {og};
-    //Show they are independent by adding an extra 'word' to the duplicate
+    // Show all contents were copied by checking that they all contain the same number of words
+    cout << "Copy constructor includes all contents test: ";    
+    if(og.allWordsStartingWithPrefix("").size() == duplicate.allWordsStartingWithPrefix("").size())
+        cout << "PASS" << endl;
+    else
+        cout << "FAIL" << endl;
+
+    // Show they are independent by adding an extra 'word' to the duplicate
+    cout << "Copy constructor independence test: ";
     string notInOg("notinog");
     duplicate.addWord(notInOg);
+    // Show that duplicate has the extra word, but the original does not.
     if(og.isWord(notInOg) != duplicate.isWord(notInOg))
         cout << "PASS" << endl;
     else
         cout << "FAIL" << endl;
-    //*/
 
-    // /*
-    //Assignment Operator
-    cout << "Assignment Operator test: ";
+    //Assignment Operator Test
     og = duplicate;
+    // Show they now have the same contents by checking that they both contain a word that og did not before the duplicate
+    cout << "Assignment Operator includes all contents test: ";
     if(og.isWord(notInOg) == duplicate.isWord(notInOg))
         cout << "PASS" << endl;
     else
         cout << "FAIL" << endl;
     
-    //*/
+    cout << "Assignment Operator indendence test: ";
+    // Show that duplicate has an extra word, but the original does not.
+    notInOg = "notinogtwo";
+    duplicate.addWord(notInOg);
+    if(og.isWord(notInOg) != duplicate.isWord(notInOg))
+        cout << "PASS" << endl;
+    else
+        cout << "FAIL" << endl;
     
     return 0;
 }

@@ -11,12 +11,13 @@
 
 class Trie {
     private:
-        static const int alphabetSize_ {26};
+        static const int branchesCount_ {26};
+        static const char charOffset_ {'a'};
 
         /// @brief Stores if the current node and its parent nodes form a word.
         bool isWord_;
         /// @brief Array storing pointers to other nodes of the Trie. Each letter a-z is represented by the index 0-25 respectively
-        Trie** alphabet_;
+        Trie* branches_[branchesCount_];
 
         /// @brief Recursive method for adding letters to the trie
         /// @param word 
