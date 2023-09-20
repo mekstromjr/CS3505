@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/workspaces/CS3505/code/practice/libDArray/src",
+            "binaryPath": "/workspaces/CS3505/code/practice/libDArray/src/testDArray",
+            "binaryArgs": []
+        }
+    ]
+}

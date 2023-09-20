@@ -8,27 +8,31 @@ Make Variables
         at top of file
             name = some_string 
     $@ - Variable for a command that copies the target name, in the below example $@ will be replaced with 'target'
-    eg.
+    example:
         /*Target Line */    target: target.o targetDependent1.o targetDependent2.h
     	/*Command Line*/        $(CC) $(CFLAGS) -o $@ main.o Car.o
 
-Multiple targets in same target line - executes the same command for each target when 'make target' is called
+Multiple targets in same target line - executes the same command for each target when 'make target1' or 'make target2' is called
     eg. 
         target1 target2: dependency
             $(CC) $(CFLAGS) -o $@
 
 Clean Target
     Useful tool for creating a "clean build"
-    -f flag means "force" ie. don't warn me about deleting and, if there's nothing to delete, don't tell me.
-    - *.o means all files with anything ended with .o
-    - rm main line is optional, but useful if you want to remove the executable as well
-
-clean:
-    rm -f *.o
-	rm -f main
+    -f: flag means "force" ie. don't warn me about deleting and, if there's nothing to delete, don't tell me.
+    *.o: means all files with anything ended with .o
+    rm: main line is optional, but useful if you want to remove the executable as well
+    eg.
+        clean:
+            rm -f *.o
+        	rm -f main
 
 
 Libraries
-    Should be included last on complile line because they may or may not be used.
+    Should be included last on complile line because they are least likley to be modified.
+    Note: if you have a -l you MUST have a -L telling it where to look for that library, even if the library is in the working directory
     -lName - defines library name to link. Convention is -lName would convert to libName.a
-    -L(PATH) - Tells the linker where to look for library files
+    -L(PATH) - Tells the linker where to look for library files. 
+
+    Building a Library -
+        ar -rcf lib(NAME).a (NAME).o

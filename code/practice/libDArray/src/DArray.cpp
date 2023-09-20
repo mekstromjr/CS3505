@@ -25,7 +25,7 @@ int DArray::operator[](int index) const {
 
 int& DArray::operator[](int index) {
     while(index >= size_) 
-        resize(size_ * 1.5);
+        resize(size_ * 1.2);
     
     return data_[index];
 }
@@ -40,7 +40,7 @@ void DArray::resize(int newSize) {
     size_ = newSize;
 }
 
-DArray& DArray::operator=(DArray& other) {
+DArray& DArray::operator=(DArray other/*Auto-Calls copy constructor before this*/) {
     // swap(data_, other.data_);
     int* tmpData = data_;
     data_ = other.data_;

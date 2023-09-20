@@ -17,7 +17,7 @@ class DArray {
         int operator[](int index) const;
         int& operator[](int index);
         void resize(int newSize);
-        DArray& operator=(DArray& other);
+        DArray& operator=(DArray other);
         friend std::ostream& operator<<(std::ostream& output, DArray arr);
 };
 

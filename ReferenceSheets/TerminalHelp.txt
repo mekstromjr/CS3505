@@ -1,0 +1,74 @@
+Linux Terminal Commands
+ls - lists members of the directory
+    Common Flags
+    -a shows all elements of directory
+    -R shows elements recursivly ie. everything in this directory and everything in its sub-directories
+    -l long version of filenames. Note: the rwx (read/write/execute) flag at the begining indicates privilages, owner, group, and all.
+
+tree - shows a cool tree representation of the filesystem from the current directory deeper
+
+cd [path] - move to directory, if path is left blank, then it takes you to the system root
+
+rm - remove
+    -f flag means force, ie. if you remove a bunch of files it won't ask you if you want to continue
+cp - copy
+mv - move or rename
+pwd - show path to present working directory
+mkdir - make a directory
+tree
+    Flags
+        -a            All files are listed.
+        -d            List directories only.
+        -l            Follow symbolic links like directories.
+        -f            Print the full path prefix for each file.
+        -L level      Descend only level directories deep.
+        -R            Rerun tree when max dir level reached.
+        -P pattern    List only those files that match the pattern given.
+        -I pattern    Do not list files that match the given pattern.
+        --gitignore   Filter by using .gitignore files.
+        -o filename   Output to file instead of stdout.
+
+
+Copy something from computer to container
+    On host machine:
+    $ docker ps
+        Copy the container Id
+    $ docker cp FILENAME CONTAINERID:PATH/IN/CONTAINER
+
+Compiler g++
+    Common Flags:
+        -c: Takes .cpp/.h files and compiles them into .o object files
+        -o: Takes .cpp/.h/.o/.a files and compiles and links them into an executable
+        -Wall: Flag which gives a bunch of c++ compiler warnings if any are merited
+        -g: debugger flag. Files must be compiled with this in order for debugger to work
+        -fsanitize=undefined: Gives warnings for undefined stack behavior (ie. index out of bounds on heap, etc.)
+        -fsanitize=address: Gives warnings for undefined heap behavior (ie. memory leaks, etc.)
+
+    Libraries
+        Should be included last on complile line because they are least likley to be modified.
+        Note: if you have a -l you MUST have a -L telling it where to look for that library, even if the library is in the working directory
+        -l(NAME) - defines library name to link. Convention is -lName would convert to libName.a
+        -L(PATH) - Tells the linker where to look for library files. 
+
+        Building a Library -
+            ar -rcf lib(NAME).a (NAME).o
+
+Run executable
+    ./{executable}
+
+
+echo
+    by default prints its arguements (input stream) to the terminal (output stream)
+
+program < source
+    sets the input stream for a program
+
+program > destination
+    sets the output stream for a program
+        >> 
+    appends instead of overwritting
+
+cat [filname]
+    con CAT enates 
+    by default can print contents of a file to the terminal
+    by overriding the output stream can be used to edit file or can be used to copy contents of one file into another
