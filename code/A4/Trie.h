@@ -11,11 +11,15 @@
 
 class Trie {
     private:
+        /// @brief Defines the number of branches each trie node has. Prevents magic numbers
         static const int branchesCount_ {26};
+
+        /// @brief Defines which character will be located at branches_[0]. Prevents magic numbers
         static const char charOffset_ {'a'};
 
         /// @brief Stores if the current node and its parent nodes form a word.
         bool isWord_;
+
         /// @brief Array storing pointers to other nodes of the Trie. Each letter a-z is represented by the index 0-25 respectively
         Trie* branches_[branchesCount_];
 
@@ -27,53 +31,53 @@ class Trie {
         /// @param word 
         bool isWordRecursive(std::string word);
 
+        /// @brief Recursivly adds all words that contain the given prefix from the current node
+        /// @param prefix Contains the remaining characters of the prefix
+        /// @param word Contains characters from trie above this node in the trie. ie. The word up to this point.
+        /// @param words Contains words from the trie with the prefix up to this point
+        /// @return vector containing all words in the trie below this node with the given prefix.
+        std::vector<std::string>& allWordsStartingWithPrefixRecursive(std::string prefix, std::string word, std::vector<std::string>& words);\
+
         /// @brief Checks the word to ensure all characters are from a-z lower case. 
         /// @param word 
-        /// @return true if all characters are a-z lower case, false if any other character appears.
+        /// @return True if all characters are a-z lower case, False if any other character appears.
         bool isValidWord(std::string word);
 
-        /// @brief Returns a vector with all words that contain the given prefix
-        /// @param prefix Contains the remaining characters of the prefix
-        /// @param word Contains characters from trie above this node in the tree
-        /// @param words Contains words from the trie with prefix this point
-        /// @return 
-        std::vector<std::string>& allWordsStartingWithPrefixRecursive(std::string prefix, std::string word, std::vector<std::string>& words);
-
     public:
-        /// @brief default constructor
+        /// @brief Default Constructor
         Trie();
 
-        /// @brief copy constructor
+        /// @brief Copy Constructor
         /// @param other 
         Trie(const Trie& other);
 
-        /// @brief A destructor
+        /// @brief Destructor
         ~Trie();
 
-        /// @brief assignment= operator
+        /// @brief Assignment Operator
         /// @param other 
         /// @return 
         Trie& operator=(Trie other);
 
-        /// @brief The word passed into the method should be added to the Trie object. 
-        ///     Duplicate adds should not change the Trie. 
-        ///     You may assume that the word is only made up of lower-case characters from a-z.
-        /// @param word 
+        /// @brief Attempts to add word to the trie. 
+        ///     Duplicate adds do not change the Trie. 
+        ///     Word is assumed to only be made up of lower-case characters from a-z.
+        /// @param word - Word which will be added to the trie
         void addWord(std::string word);
 
-        /// @brief Any character in the string not made up of characters 'a'-'z' causes an immediate return of false. 
-        ///     If the word is found in the Trie, the method should return true, otherwise return false.  
-        ///     A Trie should report that an empty string is not in the Trie.
-        /// @param word 
-        /// @return 
+        /// @brief Checks if the given word is in the trie. Any character in the string not 
+        ///     made up of characters a-z or an empty string causes an immediate return of false. 
+        ///     If the word is found in the Trie, the method returns true, otherwise returns false.  
+        /// @param word - Word which is searched for in the trie.
+        /// @return - True if word was found in the trie, false otherwise.
         bool isWord(std::string word);
 
-        /// @brief Characters in the prefix string should be tested to make sure they are only 'a'-'z'.
-        ///     If the prefix is a word, that should be included.
-        ///     An empty prefix should return all words in the Trie.
-        /// @param word 
-        /// @return a vector<std::string> that contains all the words in the Trie that begin with the passed in argument prefix string. 
-        std::vector<std::string> allWordsStartingWithPrefix(std::string word);
+        /// @brief Gets a list of words from the trie that start with the given prefix.
+        ///     An empty prefix returns all words in the Trie.
+        ///     A prefix containing invalid characters (not a-z) will return an empty vector.
+        /// @param prefix - prefix all words in the output vector will begin with. 
+        /// @return a vector that contains all the words in the Trie that begin with the prefix string. 
+        std::vector<std::string> allWordsStartingWithPrefix(std::string prefix);
 };
 
 #endif

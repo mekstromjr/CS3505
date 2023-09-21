@@ -40,6 +40,7 @@ void Trie::addWord(std::string word) {
 }
 
 void Trie::addWordRecursive(std::string word) {
+    // Base case: Reached end of string, no more charcters to add.
     if(word.size() == 0) {
         isWord_ = true;
         return;
@@ -52,7 +53,6 @@ void Trie::addWordRecursive(std::string word) {
 }
 
 bool Trie::isWord(std::string word) {
-    //Check to make sure all characters are a-z
     if(!isValidWord(word))
         return false;
     
@@ -60,25 +60,24 @@ bool Trie::isWord(std::string word) {
 }
 
 bool Trie::isWordRecursive(std::string word) {
+    // Base case 1: Reached end of input string
     if(word.size() == 0)
         return isWord_;    
     
     if(branches_[word[0] - charOffset_])
         return (*branches_[word[0] - charOffset_]).isWordRecursive(word.substr(1)); 
 
-    //Word is not in the trie
+    // Base case 2: Reached end of the trie
     return false;
 }
 
-std::vector<std::string> Trie::allWordsStartingWithPrefix(std::string word) {
+std::vector<std::string> Trie::allWordsStartingWithPrefix(std::string prefix) {
     std::vector<std::string> words { };
     //Check to ensure word contains valid characters
-    if(word.size() != 0 && !isValidWord(word))
+    if(prefix.size() != 0 && !isValidWord(prefix))
         return words;
 
-    allWordsStartingWithPrefixRecursive(word, "", words);
-
-    return words;
+    return allWordsStartingWithPrefixRecursive(prefix, "", words);
 }
 
 std::vector<std::string>& Trie::allWordsStartingWithPrefixRecursive(std::string prefix, std::string word, std::vector<std::string>& words) {
@@ -90,25 +89,23 @@ std::vector<std::string>& Trie::allWordsStartingWithPrefixRecursive(std::string 
             return words;
     }
         
-    //If the current node, which is at or longer than the prefix, is a word, add it
+    //If the current node (which contains or is the prefix) is a word, add it.
     if(isWord_)
         words.push_back(word);
 
-    //Check the branches of this node for words and add them
-    for(unsigned int i = 0; i < branchesCount_; i++) {
+    //Check all branches of this node for words
+    for(unsigned int i = 0; i < branchesCount_; i++)
         if(branches_[i])
             (*branches_[i]).allWordsStartingWithPrefixRecursive(prefix, word + (char)(i + charOffset_), words);
-        
-    }
     
     return words;
 }
-
 
 bool Trie::isValidWord(std::string word) {
     if(word.size() == 0)
         return false;
     
+    // Checks to ensure every character will have an index within the bounds of the trie.
     for(unsigned int i = 0; i < word.size(); i++)
         if(word[i] - charOffset_ > branchesCount_ - 1 || word[i] - charOffset_ < 0)
             return false;

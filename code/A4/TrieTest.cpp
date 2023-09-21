@@ -19,6 +19,7 @@ int main(int argc, char **argv) {
     }
 
     std::ifstream dictionaryFile, queryFile;
+
     dictionaryFile.open(argv[1]);
     if(!dictionaryFile.is_open()) {
         cout << "Dictionary file failed to open. Quitting" << endl;
@@ -31,19 +32,20 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    string text { };
     Trie dictionaryTrie { };
-    while(getline(dictionaryFile, text)) 
-        dictionaryTrie.addWord(text);
+    string inputText { };
     
-    while(getline(queryFile, text)) {
-        cout << "Checking " << text << ":" << endl;
-        if(dictionaryTrie.isWord(text))
+    while(getline(dictionaryFile, inputText)) 
+        dictionaryTrie.addWord(inputText);
+    
+    while(getline(queryFile, inputText)) {
+        cout << "Checking " << inputText << ":" << endl;
+        if(dictionaryTrie.isWord(inputText))
             cout << "Word found" << endl;
         else
             cout << "Word not found" << endl;
         
-        for(string s: dictionaryTrie.allWordsStartingWithPrefix(text))
+        for(string s: dictionaryTrie.allWordsStartingWithPrefix(inputText))
             cout << s << " ";
         
         cout << endl;
@@ -53,7 +55,6 @@ int main(int argc, char **argv) {
     queryFile.close();
 
     //----------------- Rule-of-3 testing ----------------------//
-    // /*
     string words[8] {"a", "an", "ant", "aunt", "ban", "can", "yell", "zebra"};
     Trie og { };
     for(string s : words)
@@ -80,7 +81,7 @@ int main(int argc, char **argv) {
 
     //Assignment Operator Test
     og = duplicate;
-    // Show they now have the same contents by checking that they both contain a word that og did not before the duplicate
+    // Show they now have the same contents by checking that they both contain a word that og did not have before the assignment.
     cout << "Assignment Operator includes all contents test: ";
     if(og.isWord(notInOg) == duplicate.isWord(notInOg))
         cout << "PASS" << endl;
