@@ -31,3 +31,6 @@
 *.out
 *.app
 code/A1/CA
+
+.vscode
+*.json
