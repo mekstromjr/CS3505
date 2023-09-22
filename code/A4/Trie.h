@@ -23,7 +23,7 @@ class Trie {
         /// @brief Array storing pointers to other nodes of the Trie. Each letter a-z is represented by the index 0-25 respectively
         Trie* branches_[branchesCount_];
 
-        /// @brief Recursive method for adding letters to the trie
+        /// @brief Recursive method for adding characters to the trie
         /// @param word 
         void addWordRecursive(std::string word);
 
@@ -31,18 +31,25 @@ class Trie {
         /// @param word 
         bool isWordRecursive(std::string word);
 
-        /// @brief Recursivly adds all words that contain the given prefix from the current node
+        /// @brief Recursivly gets all words from the trie that contain the given prefix
         /// @param prefix Contains the remaining characters of the prefix
         /// @param word Contains characters from trie above this node in the trie. ie. The word up to this point.
         /// @param words Contains words from the trie with the prefix up to this point
         /// @return vector containing all words in the trie below this node with the given prefix.
-        std::vector<std::string>& allWordsStartingWithPrefixRecursive(std::string prefix, std::string word, std::vector<std::string>& words);\
+        std::vector<std::string>& allWordsStartingWithPrefixRecursive(std::string prefix, std::string word, std::vector<std::string>& wordsWithPrefix);
+
+        /// @brief Adds all words from this node in the trie and below to the words list.
+        /// @param word - characters from trie up to and including this node
+        /// @param words - words from above this node in the trie which will be appended onto.
+        /// @return vector containing all words in the trie below this node. 
+        std::vector<std::string>& allWordsBelowCurrentNode(std::string word, std::vector<std::string>& words);
 
         /// @brief Checks the word to ensure all characters are from a-z lower case. 
         /// @param word 
-        /// @return True if all characters are a-z lower case, False if any other character appears.
-        bool isValidWord(std::string word);
+        /// @return True if all characters are a-z lower case, False for any other characters or an empty string
+        bool containsOnlyValidCharacters(std::string word);
 
+       
     public:
         /// @brief Default Constructor
         Trie();
