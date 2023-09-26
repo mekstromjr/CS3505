@@ -43,6 +43,8 @@ Compiler g++
         -g: debugger flag. Files must be compiled with this in order for debugger to work
         -fsanitize=undefined: Gives warnings for undefined stack behavior (ie. index out of bounds on heap, etc.)
         -fsanitize=address: Gives warnings for undefined heap behavior (ie. memory leaks, etc.)
+        -pedantic: issue warnings based on strict ISO C++
+        -Wextra: essentailly -Wall++,
 
     Libraries
         Should be included last on complile line because they are least likley to be modified.

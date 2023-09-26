@@ -1,0 +1,62 @@
+SDLC
+    The earlier in process changes are made, the less expensive. Even "debugging" software requirements 
+
+Types of testing
+    Unit:
+    Functional/System:
+    User Acceptance:
+    Integration:
+    Performance:
+    Load:
+
+Styles
+    Static
+        - code reviews
+        - compiler tools
+    Dynamic
+        - executing code
+            -> test cases
+        - testing framework
+
+    Open Box
+        - Internal structure of code
+        - Exercise execution paths to uncover problems in all potions of code
+        - requires knowledge of internal structure of code
+
+    Closed Box 
+        - 
+
+Designing Tests
+    Equivalence partitioning ie. each test should target a different partition
+        - group inputs into equivalent groups or partitions
+            -> valid partitions - inputs with defined outputs
+            -> invalid partitions - inputs with ill-efined outputs
+
+    Random "monkey" testing 
+        - Similar to "fuzz" testing (designed to crash or expose security flaws) by inputing random, weird stuff
+    
+
+Writing Tests
+    Assert
+        - in <cassert>
+        - void assert(expression)
+        - if expression is false
+            -> write error message
+            -> abort execution
+        - Can be turned off using #define NDEBUG
+        - g++ -DNDEBUG
+
+Testing Frameworks
+    Some Options
+        - Cppunit
+        - Googletest
+    Googletest
+        - unit testing
+        - turn informa
+
+
+Refactoring
+    - Renaming
+    - Same functionality
+    - constant improvement
+    - lots of small improvements yields much better overall design (more adaptable/reusable)

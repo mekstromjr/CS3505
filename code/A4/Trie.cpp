@@ -99,7 +99,7 @@ std::vector<std::string>& Trie::allWordsStartingWithPrefixRecursive(std::string 
        return allWordsBelowCurrentNode(word, words);
     }
     
-    //Navigate to node of the last character of prefix if it exists
+    //Navigate to the node of the last character of prefix if it exists
     if(branches_[prefix[0] - charOffset_]) {
         return (*branches_[prefix[0] - charOffset_]).allWordsStartingWithPrefixRecursive(prefix.substr(1), word + prefix[0], words);
     }

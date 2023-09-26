@@ -17,10 +17,10 @@ class Trie {
         /// @brief Defines which character will be located at branches_[0]. Prevents magic numbers
         static const char charOffset_ {'a'};
 
-        /// @brief Stores if the current node and its parent nodes form a word.
+        /// @brief Stores if the current node, together with its parent nodes, forms a word.
         bool isWord_;
 
-        /// @brief Array storing pointers to other nodes of the Trie. Each letter a-z is represented by the index 0-25 respectively
+        /// @brief Array storing other nodes of the Trie. Each letter a-z is represented by the index 0-25 respectively
         Trie* branches_[branchesCount_];
 
         /// @brief Recursive method for adding characters to the trie
