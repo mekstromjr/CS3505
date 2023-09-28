@@ -1,15 +1,12 @@
 #include <iostream>
 #include <cmath>
+#include <map>
+#include <vector>
 using namespace std;
 
 
 int main() {
-    cout << "Enter a Number" << endl;
-    int i(0);
-    if((cin >> i)) {
+    if(-1)
         cout << "true" << endl;
-    } else {
-        cout << "false" << endl;
-    }
     return 0;
 }

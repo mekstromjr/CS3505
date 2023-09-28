@@ -5,4 +5,4 @@ SRC = $(PROJECT)/src/
 PROJECT = ../
 
 run: Main
-	./Main
+	./Main config.txt
