@@ -1,0 +1,9 @@
+1 Circulator 0600-1800
+2 Blue 0600-1800
+3 Circulator 0600-1800
+4 Blue 0600-1800
+6 Orange 0600-1800
+7 Orange 0600-1900
+14 Wasatch 0600-2200
+15 BSB-U_Hospital 0600-1800
+23 Shorline 0600-2200

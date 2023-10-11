@@ -1,8 +1,7 @@
 CC = g++
 CFLAGS = -g -Wall -fsanitize=undefined -fsanitize=address
-INCLUDE = $(PROJECT)/include/
-SRC = $(PROJECT)/src/
-PROJECT = ../
+INCLUDE = ../include/
+SRC = ../src/
 
-run: Main
-	./Main config.txt
+run: main
+	./main config.txt
